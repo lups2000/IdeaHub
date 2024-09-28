@@ -1,6 +1,6 @@
 export const Navbar = () => {
   return (
-    <div className="navbar bg-base-100 shadow-lg">
+    <div className="navbar bg-base-100 shadow-lg z-10 relative">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Reddit Clone</a>
       </div>
