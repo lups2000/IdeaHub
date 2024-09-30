@@ -1,5 +1,7 @@
 import { Post } from "./PostCard";
 import closeIcon from "../../assets/close.svg";
+import { PostHeader } from "./PostHeader";
+import { PostEngagement } from "./PostEngagement";
 
 interface PostModalProps {
   isOpen: boolean;
@@ -18,12 +20,13 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
       <div className="modal-box bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
         {/* Header with Username and Date */}
         <div className="flex flex-row justify-between">
-          <div className="flex items-center space-x-2 text-sm text-gray-500 mb-4">
-            <div className="font-semibold">{username}</div>
-            <div>&bull;</div>
-            <div>{date}</div>
-          </div>
-          <img src={closeIcon} alt="close" className="w-5 h-5 cursor-pointer" onClick={onClose}/>
+          <PostHeader username={username} date={date} />
+          <img
+            src={closeIcon}
+            alt="close"
+            className="w-5 h-5 cursor-pointer"
+            onClick={onClose}
+          />
         </div>
 
         {/* Title */}
@@ -42,6 +45,14 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
             />
           </figure>
         )}
+
+        <PostEngagement
+          likes={likes}
+          comments={comments}
+          style={{ marginTop: 10, marginBottom: 10 }}
+        />
+
+        <hr />
       </div>
     </div>
   );
