@@ -27,6 +27,7 @@ export const PostsContainer = () => {
       username: "u/PopsicleDragon",
       date: "19h ago",
       title: "Do you agree with him? (Former PlayStation Boss Message)",
+      description: "Do you agree with him? (Former PlayStation Boss Message)",
       imageUrl: "/path-to-image/ghost_of_tsushima.jpg",
       likes: 19800,
       comments: 3300,
