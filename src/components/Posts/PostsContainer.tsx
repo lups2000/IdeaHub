@@ -1,14 +1,15 @@
 import Masonry from "react-masonry-css";
-import { PostCard, PostCardProps } from "./PostCard";
+import { Post, PostCard } from "./PostCard";
 import "../../style/post.css";
 
 export const PostsContainer = () => {
-  const posts: PostCardProps[] = [
+  const posts: Post[] = [
     {
       username: "u/Direct_Message_8558",
       date: "11h ago",
       title:
         "Who has most successfully milked what should have been 15 minutes of fame?",
+      description: "I'm thinking of people like the 'Cash",
       imageUrl: undefined,
       likes: 5300,
       comments: 4200,
@@ -17,6 +18,7 @@ export const PostsContainer = () => {
       username: "u/VioEnvy",
       date: "19h ago",
       title: "I woke up to a black glove in my foyer.",
+      description: "I woke up to a black glove in my foyer.",
       imageUrl: undefined,
       likes: 3200,
       comments: 2400,
@@ -101,7 +103,7 @@ export const PostsContainer = () => {
         columnClassName="my-masonry-grid_column"
       >
         {posts.map((post, index) => (
-          <PostCard key={index} {...post} />
+          <PostCard key={index} post={post} />
         ))}
       </Masonry>
       <button className="w-40 h-10 mt-4 rounded-sm bg-white border border-gray-300 font-semibold transition duration-300 ease-in-out hover:scale-110">

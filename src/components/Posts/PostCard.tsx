@@ -6,17 +6,22 @@ import commentsIcon from "../../assets/comments.svg";
 import { PostModal } from "./PostModal";
 import { useState } from "react";
 
-export interface PostCardProps {
+export interface Post {
   username: string;
   date: string;
   title: string;
+  description?: string;
   imageUrl?: string;
   likes: number;
   comments: number;
 }
 
+export interface PostCardProps {
+  post: Post;
+}
+
 export const PostCard = (props: PostCardProps) => {
-  const { username, date, title, imageUrl, likes, comments } = props;
+  const { username, date, title, imageUrl, likes, comments } = props.post;
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleShowModal = () => setModalOpen(true);
@@ -95,7 +100,7 @@ export const PostCard = (props: PostCardProps) => {
           </div>
         </div>
       </div>
-      <PostModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <PostModal isOpen={isModalOpen} onClose={handleCloseModal} post={props.post} />
     </>
   );
 };
