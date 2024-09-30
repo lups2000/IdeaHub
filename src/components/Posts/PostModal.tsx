@@ -2,6 +2,7 @@ import { Post } from "./PostCard";
 import closeIcon from "../../assets/close.svg";
 import { PostHeader } from "./PostHeader";
 import { PostEngagement } from "./PostEngagement";
+import { PostComments } from "./PostComments";
 
 interface PostModalProps {
   isOpen: boolean;
@@ -46,13 +47,16 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
           </figure>
         )}
 
+        {/* Post Engagement */}
         <PostEngagement
           likes={likes}
           comments={comments}
           style={{ marginTop: 10, marginBottom: 10 }}
         />
-
         <hr />
+
+        {/* Comments Section */}
+        <PostComments />
       </div>
     </div>
   );
