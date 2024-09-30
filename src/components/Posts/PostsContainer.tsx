@@ -1,4 +1,6 @@
+import Masonry from "react-masonry-css";
 import { PostCard, PostCardProps } from "./PostCard";
+import "../../style/post.css";
 
 export const PostsContainer = () => {
   const posts: PostCardProps[] = [
@@ -44,12 +46,59 @@ export const PostsContainer = () => {
       likes: 8400,
       comments: 497,
     },
+    {
+      username: "u/emily-is-happy",
+      date: "3h ago",
+      title: "They don't care about US (Bezos meme)",
+      imageUrl: "/path-to-image/bezos_meme.jpg",
+      likes: 8400,
+      comments: 497,
+    },
+    {
+      username: "u/Mint_Perspective",
+      date: "16h ago",
+      title:
+        "A blimp crashes into buildings in a Sao Paulo suburb on Wednesday, Sept. 25th",
+      imageUrl: undefined,
+      likes: 40500,
+      comments: 3300,
+    },
+    {
+      username: "u/Mint_Perspective",
+      date: "16h ago",
+      title:
+        "A blimp crashes into buildings in a Sao Paulo suburb on Wednesday, Sept. 25th",
+      imageUrl: undefined,
+      likes: 40500,
+      comments: 3300,
+    },
+    {
+      username: "u/Mint_Perspective",
+      date: "16h ago",
+      title:
+        "A blimp crashes into buildings in a Sao Paulo suburb on Wednesday, Sept. 25th",
+      imageUrl: undefined,
+      likes: 40500,
+      comments: 3300,
+    },
   ];
+
+  const breakpointColumns = {
+    default: 4,
+    1100: 3,
+    700: 2,
+    500: 1,
+  };
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 p-10 bg-gray-100 min-h-screen">
+    <Masonry
+      breakpointCols={breakpointColumns}
+      className="my-masonry-grid"
+      columnClassName="my-masonry-grid_column"
+    >
       {posts.map((post, index) => (
         <PostCard key={index} {...post} />
       ))}
-    </div>
+    </Masonry>
   );
 };
