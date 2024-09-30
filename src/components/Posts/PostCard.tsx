@@ -27,7 +27,7 @@ export const PostCard = (props: PostCardProps) => {
   return (
     <>
       <div
-        className="flex flex-col p-4 bg-white shadow-md rounded-lg space-y-2 border border-gray-300 mb-3"
+        className="flex flex-col p-4 bg-white shadow-md rounded-md space-y-2 border border-gray-300 mb-3"
         style={{ minWidth: 240 }}
         onClick={handleShowModal}
       >
