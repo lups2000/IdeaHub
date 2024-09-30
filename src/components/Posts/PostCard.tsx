@@ -39,7 +39,7 @@ export const PostCard = (props: PostCardProps) => {
       <div className="flex-grow"></div>
 
       <div className="pt-4 border-t mt-4 flex flex-row gap-2">
-        <div className="flex items-center space-x-0 bg-gray-100 p-1 rounded-full">
+        <div className="flex items-center bg-gray-100 p-1 rounded-full">
           <button className="flex items-center justify-center w-8 h-8 hover:bg-gray-200 rounded-full">
             <img src={upVoteIcon} alt="Upvote" className="w-4 h-4" />
           </button>
@@ -49,8 +49,8 @@ export const PostCard = (props: PostCardProps) => {
           </button>
         </div>
 
-        <div className="flex items-center space-x-1 bg-gray-100 p-1 rounded-full">
-          <button className="flex items-center justify-center w-8 h-8 hover:bg-gray-200 rounded-full">
+        <div className="flex items-center bg-gray-100 p-1 rounded-full">
+          <button className="flex items-center justify-center w-8 h-8 rounded-full" disabled>
             <img src={commentsIcon} alt="Comments" className="w-4 h-4" />
           </button>
           <div className="text-sm font-medium text-gray-700 p-1">

@@ -91,14 +91,22 @@ export const PostsContainer = () => {
   };
 
   return (
-    <Masonry
-      breakpointCols={breakpointColumns}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
+    <div
+      className="flex flex-col items-center p-10"
+      style={{ backgroundColor: "rgb(249, 249, 245)" }}
     >
-      {posts.map((post, index) => (
-        <PostCard key={index} {...post} />
-      ))}
-    </Masonry>
+      <Masonry
+        breakpointCols={breakpointColumns}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {posts.map((post, index) => (
+          <PostCard key={index} {...post} />
+        ))}
+      </Masonry>
+      <button className="w-40 h-10 mt-4 rounded-sm bg-white border border-gray-300 font-semibold transition duration-300 ease-in-out hover:scale-110">
+        Load More
+      </button>
+    </div>
   );
 };
