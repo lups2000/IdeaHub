@@ -20,7 +20,7 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="modal-box bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
+      <div className="modal-box bg-white p-6 rounded-lg shadow-lg w-auto max-w-full">
         {/* Header with Username and Date */}
         <div className="flex flex-row justify-between">
           <PostHeader username={author} date={created_utc} />
