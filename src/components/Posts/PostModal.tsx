@@ -1,8 +1,8 @@
-import { Post } from "./PostCard";
 import closeIcon from "../../assets/close.svg";
 import { PostHeader } from "./PostHeader";
 import { PostEngagement } from "./PostEngagement";
 import { PostComments } from "./PostComments";
+import { Post } from "../../api/collections/post";
 
 interface PostModalProps {
   isOpen: boolean;
@@ -11,9 +11,8 @@ interface PostModalProps {
 }
 
 export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
-  const { username, date, title, imageUrl, likes, comments, description } =
-    post;
-
+  const { author_fullname, created_utc, title, ups, num_comments, selftext } =
+    post.data;
   if (!isOpen) return null;
 
   return (
@@ -21,7 +20,7 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
       <div className="modal-box bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
         {/* Header with Username and Date */}
         <div className="flex flex-row justify-between">
-          <PostHeader username={username} date={date} />
+          <PostHeader username={author_fullname} date={created_utc} />
           <img
             src={closeIcon}
             alt="close"
@@ -34,10 +33,10 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         <h3 className="font-bold text-xl text-gray-800 mb-4">{title}</h3>
 
         {/* Description */}
-        <p className="text-gray-700 leading-relaxed mb-6">{description}</p>
+        <p className="text-gray-700 leading-relaxed mb-6">{selftext}</p>
 
         {/* Image if available */}
-        {imageUrl && (
+        {/*imageUrl && (
           <figure>
             <img
               src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -45,12 +44,12 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
               className="rounded-xl"
             />
           </figure>
-        )}
+        )*/}
 
         {/* Post Engagement */}
         <PostEngagement
-          likes={likes}
-          comments={comments}
+          likes={ups}
+          comments={num_comments}
           style={{ marginTop: 10, marginBottom: 10 }}
         />
         <hr />

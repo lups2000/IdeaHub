@@ -2,23 +2,15 @@ import { PostModal } from "./PostModal";
 import { useState } from "react";
 import { PostHeader } from "./PostHeader";
 import { PostEngagement } from "./PostEngagement";
-
-export interface Post {
-  username: string;
-  date: string;
-  title: string;
-  description?: string;
-  imageUrl?: string;
-  likes: number;
-  comments: number;
-}
+import { Post } from "../../api/collections/post";
 
 export interface PostCardProps {
   post: Post;
 }
 
 export const PostCard = (props: PostCardProps) => {
-  const { username, date, title, imageUrl, likes, comments } = props.post;
+  const { author_fullname, created_utc, title, ups, num_comments } =
+    props.post.data;
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleShowModal = () => setModalOpen(true);
@@ -32,13 +24,13 @@ export const PostCard = (props: PostCardProps) => {
         onClick={handleShowModal}
       >
         {/* Post Header */}
-        <PostHeader username={username} date={date} />
+        <PostHeader username={author_fullname} date={created_utc} />
 
         {/* Post Title */}
         <div className="text-lg font-bold text-gray-800">{title}</div>
 
         {/* Post Image */}
-        {imageUrl && (
+        {/*imageUrl && (
           <figure>
             <img
               src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -46,20 +38,20 @@ export const PostCard = (props: PostCardProps) => {
               className="rounded-xl"
             />
           </figure>
-        )}
+        )*/}
 
         {/* Spacer to push content to the bottom */}
         <div className="flex-grow"></div>
 
         {/* Post Engagement */}
         <hr />
-        <PostEngagement likes={likes} comments={comments} />
+        <PostEngagement likes={ups} comments={num_comments} />
       </div>
-      <PostModal
+      {<PostModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         post={props.post}
-      />
+      />}
     </>
   );
 };
