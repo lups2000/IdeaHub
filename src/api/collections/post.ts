@@ -9,7 +9,7 @@ export interface Post {
     ups: number;
     downs: number;
     num_comments: number;
-    selftext: string;
+    selftext_html: string;
     created_utc: number;
     preview?: {
       images: {

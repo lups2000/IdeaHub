@@ -11,7 +11,8 @@ interface PostModalProps {
 }
 
 export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
-  const { author, created_utc, title, ups, num_comments, selftext } = post.data;
+  const { author, created_utc, title, ups, num_comments, selftext_html } =
+    post.data;
   const imageUrl = post.data.preview?.images?.[0]?.source?.url || "";
 
   if (!isOpen) return null;
@@ -34,7 +35,10 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         <h3 className="font-bold text-xl text-gray-800 mb-4">{title}</h3>
 
         {/* Description */}
-        <p className="text-gray-700 leading-relaxed mb-6">{selftext}</p>
+        <div
+          className="text-gray-700 leading-relaxed mb-6"
+          dangerouslySetInnerHTML={{ __html: selftext_html }}
+        />
 
         {/* Image if available */}
         {imageUrl && (
