@@ -17,7 +17,7 @@ export const PostEngagement = ({
 }: PostEngagementProps) => {
   return (
     <div className="flex flex-row gap-2" style={style}>
-      <div className="flex items-center space-x-2 bg-gray-100 p-1 px-2 rounded-full">
+      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full">
         <label className="swap">
           {/* this hidden checkbox controls the state */}
           <input type="checkbox" />
