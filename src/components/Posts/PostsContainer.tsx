@@ -8,6 +8,8 @@ import { FadeLoader } from "react-spinners";
 export const PostsContainer = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [after, setAfter] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(true);
 
   const breakpointColumns = {
     default: 4,
@@ -16,35 +18,54 @@ export const PostsContainer = () => {
     500: 1,
   };
 
+  // Load the initial posts
   useEffect(() => {
-    setIsFetching(true);
-    getPosts("/reactjs")
-      .then((response) => {
-        console.log(response);
-        setPosts(response);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setIsFetching(false));
+    loadPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Function to load posts (initial or additional)
+  const loadPosts = async () => {
+    setIsFetching(true);
+    try {
+      const response = await getPosts("reactjs", after);
+
+      setPosts((prevPosts) => [...prevPosts, ...response.posts]);
+      setAfter(response.after);
+      setHasMore(!!response.after);
+    } catch (error) {
+      console.error("Failed to load posts", error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center p-10">
-      {!isFetching ? (
-        <>
-          <Masonry
-            breakpointCols={breakpointColumns}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
+      <Masonry
+        breakpointCols={breakpointColumns}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {posts.map((post) => (
+          <PostCard key={post.data.id} post={post} />
+        ))}
+      </Masonry>
+      {isFetching ? (
+        <div className="flex justify-center mt-4">
+          <FadeLoader color="gray" />
+        </div>
+      ) : (
+        hasMore &&
+        posts.length > 0 && (
+          <button
+            onClick={loadPosts}
+            className="w-40 h-10 mt-4 rounded-sm bg-white border border-gray-300 font-semibold transition duration-300 ease-in-out hover:scale-110"
           >
-            {posts.map((post) => (
-              <PostCard key={post.data.id} post={post} />
-            ))}
-          </Masonry>
-          <button className="w-40 h-10 mt-4 rounded-sm bg-white border border-gray-300 font-semibold transition duration-300 ease-in-out hover:scale-110">
             Load More
-          </button>{" "}
-        </>
-      ) : <FadeLoader color="gray"/>}
+          </button>
+        )
+      )}
     </div>
   );
 };

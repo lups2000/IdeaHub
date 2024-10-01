@@ -36,6 +36,7 @@ export interface PostCommentInterface {
 interface PostResponse {
   data: {
     children: Post[];
+    after: string;
   };
 }
 
@@ -46,18 +47,30 @@ interface PostCommentResponse {
   };
 }
 
+interface Posts {
+  posts: Post[];
+  after: string;
+}
+
 const apiClient = new ApiClient();
 
-export async function getPosts(subreddit: string): Promise<Post[]> {
+export async function getPosts(
+  subreddit: string,
+  after: string | null
+): Promise<Posts> {
   const response = await apiClient.get<PostResponse>(
-    `${subreddit}/hot?raw_json=1`,
+    `/${subreddit}/hot?raw_json=1`,
     {
       headers: {
         Authorization: `bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
       },
-    }
+    },
+    after ? { after } : {}
   );
-  return response.data.children;
+  return {
+    posts: response.data.children,
+    after: response.data.after, // Get the after cursor from the response
+  };
 }
 
 export async function getCommentsPost(
