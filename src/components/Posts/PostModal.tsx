@@ -3,7 +3,7 @@ import { PostHeader } from "./PostHeader";
 import { PostEngagement } from "./PostEngagement/PostEngagement";
 import { Post } from "../../api/collections/post";
 import { PostCommentsContainer } from "./PostEngagement/PostCommentsContainer";
-
+import { decodeHtmlEntities } from "../../utils/functions";
 
 interface PostModalProps {
   isOpen: boolean;
@@ -38,7 +38,9 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         {/* Description */}
         <div
           className="text-gray-700 leading-relaxed mb-6"
-          dangerouslySetInnerHTML={{ __html: selftext_html }}
+          dangerouslySetInnerHTML={{
+            __html: decodeHtmlEntities(selftext_html),
+          }}
         />
 
         {/* Image if available */}
@@ -61,7 +63,7 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         <hr />
 
         {/* Comments Section */}
-        <PostCommentsContainer />
+        <PostCommentsContainer postId={post.data.id}/>
       </div>
     </div>
   );

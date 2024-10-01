@@ -19,3 +19,10 @@ export const formatDate = (utcTimestamp: number) => {
     return `${seconds} second(s) ago`;
   }
 };
+
+// Function to unescape HTML entities
+export const decodeHtmlEntities = (str: string) => {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = str;
+  return txt.value;
+};

@@ -1,15 +1,20 @@
+import { decodeHtmlEntities } from "../../../utils/functions";
 import { PostHeader } from "../PostHeader";
 
-export const PostComment = () => {
+interface PostCommentProps {
+  username: string;
+  date: number;
+  comment: string;
+}
+
+export const PostComment = ({ username, date, comment }: PostCommentProps) => {
   return (
     <div className="flex flex-col mb-3 border border-gray-300 p-4 rounded-md">
-      <PostHeader username="username" date={new Date().getTime()} />
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam vel rerum
-        autem distinctio. Nam quos laboriosam consectetur, ipsam reiciendis
-        culpa fugiat quam officiis dolorum eligendi velit, ad corrupti tenetur
-        temporibus.
-      </p>
+      <PostHeader username={username} date={date} />
+      <div
+        className="text-gray-700 leading-relaxed mb-6"
+        dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(comment) }}
+      />
     </div>
   );
 };
