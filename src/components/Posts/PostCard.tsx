@@ -19,7 +19,7 @@ export const PostCard = (props: PostCardProps) => {
   return (
     <>
       <div
-        className="flex flex-col p-4 bg-white shadow-md rounded-md space-y-2 border border-gray-400 mb-3 cursor-pointer hover:scale-95 transition-transform duration-300 ease-in-out"
+        className="flex flex-col p-4 bg-white shadow-md rounded-md space-y-2 border border-gray-400 mb-3 cursor-pointer"
         style={{ minWidth: 240 }}
         onClick={handleShowModal}
       >
