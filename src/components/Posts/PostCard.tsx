@@ -1,5 +1,5 @@
 import { PostModal } from "./PostModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostHeader } from "./PostHeader";
 import { PostEngagement } from "./PostEngagement";
 import { Post } from "../../api/collections/post";
@@ -10,6 +10,7 @@ export interface PostCardProps {
 
 export const PostCard = (props: PostCardProps) => {
   const { author, created_utc, title, ups, num_comments } = props.post.data;
+  const imageUrl = props.post.data.preview?.images?.[0]?.source?.url || "";
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleShowModal = () => setModalOpen(true);
@@ -29,15 +30,15 @@ export const PostCard = (props: PostCardProps) => {
         <div className="text-lg font-bold text-gray-800">{title}</div>
 
         {/* Post Image */}
-        {/*imageUrl && (
+        {imageUrl && (
           <figure>
             <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-              alt="Shoes"
-              className="rounded-xl"
+              src={imageUrl}
+              alt="post-image"
+              style={{ maxWidth: "100%", height: "auto" }}
             />
           </figure>
-        )*/}
+        )}
 
         {/* Spacer to push content to the bottom */}
         <div className="flex-grow"></div>

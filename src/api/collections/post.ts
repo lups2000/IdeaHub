@@ -32,7 +32,7 @@ interface PostResponse {
 const apiClient = new ApiClient();
 
 export async function getPosts(subreddit: string): Promise<Post[]> {
-  const response = await apiClient.get<PostResponse>(`${subreddit}/hot`, {
+  const response = await apiClient.get<PostResponse>(`${subreddit}/hot?raw_json=1`, {
     headers: {
       Authorization: `bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
     },

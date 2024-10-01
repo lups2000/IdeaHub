@@ -11,8 +11,9 @@ interface PostModalProps {
 }
 
 export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
-  const { author, created_utc, title, ups, num_comments, selftext } =
-    post.data;
+  const { author, created_utc, title, ups, num_comments, selftext } = post.data;
+  const imageUrl = post.data.preview?.images?.[0]?.source?.url || "";
+
   if (!isOpen) return null;
 
   return (
@@ -36,15 +37,15 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         <p className="text-gray-700 leading-relaxed mb-6">{selftext}</p>
 
         {/* Image if available */}
-        {/*imageUrl && (
+        {imageUrl && (
           <figure>
             <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-              alt="Shoes"
-              className="rounded-xl"
+              src={imageUrl}
+              alt="post-image"
+              style={{ maxWidth: "100%", height: "auto" }}
             />
           </figure>
-        )*/}
+        )}
 
         {/* Post Engagement */}
         <PostEngagement
