@@ -9,8 +9,7 @@ export interface PostCardProps {
 }
 
 export const PostCard = (props: PostCardProps) => {
-  const { author_fullname, created_utc, title, ups, num_comments } =
-    props.post.data;
+  const { author, created_utc, title, ups, num_comments } = props.post.data;
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleShowModal = () => setModalOpen(true);
@@ -24,7 +23,7 @@ export const PostCard = (props: PostCardProps) => {
         onClick={handleShowModal}
       >
         {/* Post Header */}
-        <PostHeader username={author_fullname} date={created_utc} />
+        <PostHeader username={author} date={created_utc} />
 
         {/* Post Title */}
         <div className="text-lg font-bold text-gray-800">{title}</div>
@@ -47,11 +46,13 @@ export const PostCard = (props: PostCardProps) => {
         <hr />
         <PostEngagement likes={ups} comments={num_comments} />
       </div>
-      {<PostModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        post={props.post}
-      />}
+      {
+        <PostModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          post={props.post}
+        />
+      }
     </>
   );
 };

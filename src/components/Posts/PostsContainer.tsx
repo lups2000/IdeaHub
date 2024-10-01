@@ -36,8 +36,8 @@ export const PostsContainer = () => {
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
           >
-            {posts.map((post, index) => (
-              <PostCard key={index} post={post} />
+            {posts.map((post) => (
+              <PostCard key={post.data.id} post={post} />
             ))}
           </Masonry>
           <button className="w-40 h-10 mt-4 rounded-sm bg-white border border-gray-300 font-semibold transition duration-300 ease-in-out hover:scale-110">

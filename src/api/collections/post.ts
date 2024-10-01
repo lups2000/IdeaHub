@@ -5,7 +5,7 @@ export interface Post {
   data: {
     id: string;
     title: string;
-    author_fullname: string;
+    author: string;
     ups: number;
     downs: number;
     num_comments: number;

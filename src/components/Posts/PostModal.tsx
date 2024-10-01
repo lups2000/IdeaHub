@@ -11,7 +11,7 @@ interface PostModalProps {
 }
 
 export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
-  const { author_fullname, created_utc, title, ups, num_comments, selftext } =
+  const { author, created_utc, title, ups, num_comments, selftext } =
     post.data;
   if (!isOpen) return null;
 
@@ -20,7 +20,7 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
       <div className="modal-box bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
         {/* Header with Username and Date */}
         <div className="flex flex-row justify-between">
-          <PostHeader username={author_fullname} date={created_utc} />
+          <PostHeader username={author} date={created_utc} />
           <img
             src={closeIcon}
             alt="close"
