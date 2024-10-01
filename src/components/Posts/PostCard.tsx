@@ -1,5 +1,5 @@
 import { PostModal } from "./PostModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PostHeader } from "./PostHeader";
 import { PostEngagement } from "./PostEngagement";
 import { Post } from "../../api/collections/post";
