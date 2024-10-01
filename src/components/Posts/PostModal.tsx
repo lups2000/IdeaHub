@@ -18,9 +18,21 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
 
   if (!isOpen) return null;
 
+  const handleBackgroundClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="modal-box bg-white p-6 rounded-lg shadow-lg w-auto max-w-full">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+      onClick={handleBackgroundClick}
+    >
+      <div
+        className="modal-box bg-white p-6 rounded-lg shadow-lg w-auto max-w-full"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header with Username and Date */}
         <div className="flex flex-row justify-between">
           <PostHeader username={author} date={created_utc} />
@@ -63,7 +75,7 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         <hr />
 
         {/* Comments Section */}
-        <PostCommentsContainer postId={post.data.id}/>
+        <PostCommentsContainer postId={post.data.id} />
       </div>
     </div>
   );
