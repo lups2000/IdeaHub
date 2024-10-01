@@ -1,8 +1,8 @@
-import downVoteIcon from "../../assets/down_vote.svg";
-import upVoteIcon from "../../assets/up_vote.svg";
-import upVoteIconFilled from "../../assets/up_vote_filled.svg";
-import downVoteIconFilled from "../../assets/down_vote_filled.svg";
-import commentsIcon from "../../assets/comments.svg";
+import downVoteIcon from "../../../assets/down_vote.svg";
+import upVoteIcon from "../../../assets/up_vote.svg";
+import upVoteIconFilled from "../../../assets/up_vote_filled.svg";
+import downVoteIconFilled from "../../../assets/down_vote_filled.svg";
+import commentsIcon from "../../../assets/comments.svg";
 
 interface PostEngagementProps {
   likes: number;

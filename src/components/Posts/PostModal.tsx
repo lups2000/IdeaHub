@@ -1,8 +1,9 @@
 import closeIcon from "../../assets/close.svg";
 import { PostHeader } from "./PostHeader";
-import { PostEngagement } from "./PostEngagement";
-import { PostComments } from "./PostComments";
+import { PostEngagement } from "./PostEngagement/PostEngagement";
 import { Post } from "../../api/collections/post";
+import { PostCommentsContainer } from "./PostEngagement/PostCommentsContainer";
+
 
 interface PostModalProps {
   isOpen: boolean;
@@ -60,7 +61,7 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         <hr />
 
         {/* Comments Section */}
-        <PostComments />
+        <PostCommentsContainer />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { PostModal } from "./PostModal";
 import { useState } from "react";
 import { PostHeader } from "./PostHeader";
-import { PostEngagement } from "./PostEngagement";
+import { PostEngagement } from "./PostEngagement/PostEngagement";
 import { Post } from "../../api/collections/post";
 
 export interface PostCardProps {
