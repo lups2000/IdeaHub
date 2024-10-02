@@ -92,7 +92,7 @@ export async function votePost(
   postId: string,
   direction: number
 ): Promise<void> {
-  const response = await apiClient.post(
+  await apiClient.post(
     `api/vote`,
     {
       id: `t3_${postId}`, // 't3_' prefix means it’s a post
@@ -101,10 +101,9 @@ export async function votePost(
     {
       headers: {
         Authorization: `bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     }
   );
-  console.log(response);
-  return 
+  return;
 }
