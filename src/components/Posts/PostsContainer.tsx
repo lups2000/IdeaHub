@@ -30,9 +30,9 @@ export const PostsContainer = () => {
     try {
       const response = await getPosts("reactjs", after);
 
-      setPosts((prevPosts) => [...prevPosts, ...response.posts]);
+      setPosts([...posts, ...response.posts]);
       setAfter(response.after);
-      setHasMore(!!response.after);
+      setHasMore(!!response.after); // !! operator converts the value to a boolean
     } catch (error) {
       console.error("Failed to load posts", error);
     } finally {
