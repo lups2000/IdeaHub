@@ -9,8 +9,10 @@ export interface PostCardProps {
 }
 
 export const PostCard = (props: PostCardProps) => {
-  const { author, created_utc, title, ups, num_comments } = props.post.data;
+  const { author, created_utc, title, ups, num_comments, likes, id } =
+    props.post.data;
   const imageUrl = props.post.data.preview?.images?.[0]?.source?.url || "";
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleShowModal = () => setModalOpen(true);
@@ -45,7 +47,12 @@ export const PostCard = (props: PostCardProps) => {
 
         {/* Post Engagement */}
         <hr />
-        <PostEngagement likes={ups} comments={num_comments} />
+        <PostEngagement
+          numUpVotes={ups}
+          numComments={num_comments}
+          likes={likes}
+          postId={id}
+        />
       </div>
       {
         <PostModal

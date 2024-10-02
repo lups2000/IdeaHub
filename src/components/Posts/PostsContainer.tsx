@@ -28,7 +28,7 @@ export const PostsContainer = () => {
   const loadPosts = async () => {
     setIsFetching(true);
     try {
-      const response = await getPosts("reactjs", after);
+      const response = await getPosts("r/reactjs", after);
 
       setPosts([...posts, ...response.posts]);
       setAfter(response.after);

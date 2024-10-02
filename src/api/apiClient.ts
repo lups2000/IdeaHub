@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export class ApiClient {
-  private baseURL: string = "https://oauth.reddit.com/r/";
+  private baseURL: string = "https://oauth.reddit.com/";
 
   private async request<T>(config: AxiosRequestConfig): Promise<T> {
     try {
@@ -25,4 +25,13 @@ export class ApiClient {
       ? this.request<T>({ url, method: "GET", params: queryParams, ...config })
       : this.request<T>({ url, method: "GET", ...config });
   }
+
+  public async post<T>(
+    url: string,
+    data: any,
+    config?: AxiosRequestConfig
+  ): Promise<T> {
+    return this.request<T>({ url, method: "POST", data, ...config });
+  }
+
 }

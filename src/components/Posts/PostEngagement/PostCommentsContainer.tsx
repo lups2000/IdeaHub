@@ -16,7 +16,7 @@ export const PostCommentsContainer = ({
   const [comments, setComments] = useState<PostCommentInterface[]>([]);
 
   useEffect(() => {
-    getCommentsPost("/reactjs", postId)
+    getCommentsPost("r/reactjs", postId)
       .then((response) => setComments(response))
       .catch((error) => console.log(error));
   }, [postId]);

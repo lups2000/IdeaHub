@@ -12,8 +12,16 @@ interface PostModalProps {
 }
 
 export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
-  const { author, created_utc, title, ups, num_comments, selftext_html } =
-    post.data;
+  const {
+    author,
+    created_utc,
+    title,
+    ups,
+    num_comments,
+    selftext_html,
+    likes,
+    id,
+  } = post.data;
   const imageUrl = post.data.preview?.images?.[0]?.source?.url || "";
 
   if (!isOpen) return null;
@@ -68,8 +76,10 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
 
         {/* Post Engagement */}
         <PostEngagement
-          likes={ups}
-          comments={num_comments}
+          numUpVotes={ups}
+          numComments={num_comments}
+          likes={likes}
+          postId={id}
           style={{ marginTop: 10, marginBottom: 10 }}
         />
         <hr />

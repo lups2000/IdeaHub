@@ -7,7 +7,7 @@ export interface Post {
     title: string;
     author: string;
     ups: number;
-    downs: number;
+    likes: boolean | null;
     num_comments: number;
     selftext_html: string;
     created_utc: number;
@@ -67,6 +67,7 @@ export async function getPosts(
     },
     after ? { after } : {}
   );
+  console.log(response.data.children);
   return {
     posts: response.data.children,
     after: response.data.after, // Get the after cursor from the response
@@ -86,4 +87,25 @@ export async function getCommentsPost(
     }
   );
   return response[1].data.children;
+}
+
+export async function votePost(
+  postId: string,
+  direction: number
+): Promise<void> {
+  const response = await apiClient.post(
+    `api/vote`,
+    {
+      id: `t3_${postId}`, // 't3_' prefix means it’s a post
+      dir: direction, // 1 for upvote, -1 for downvote, 0 for unvote
+    },
+    {
+      headers: {
+        Authorization: `bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+    }
+  );
+  console.log(response);
+  return 
 }

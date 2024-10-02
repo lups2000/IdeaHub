@@ -4,50 +4,57 @@ import upVoteIconFilled from "../../../assets/up_vote_filled.svg";
 import downVoteIconFilled from "../../../assets/down_vote_filled.svg";
 import commentsIcon from "../../../assets/comments.svg";
 import { useState } from "react";
+import { votePost } from "../../../api/collections/post";
 
 interface PostEngagementProps {
-  likes: number;
-  comments: number;
+  numUpVotes: number;
+  numComments: number;
+  likes: boolean | null;
+  postId: string;
   style?: React.CSSProperties;
 }
 
 export const PostEngagement = ({
+  numUpVotes,
+  numComments,
   likes,
-  comments,
+  postId,
   style,
 }: PostEngagementProps) => {
-  const [isUpVoted, setIsUpVoted] = useState(false);
-  const [isDownVoted, setIsDownVoted] = useState(false);
+  const [voteStatus, setVoteStatus] = useState<number>(
+    likes === true ? 1 : likes === false ? -1 : 0
+  );
+  const [upVotesCount, setUpVotesCount] = useState(numUpVotes);
 
-  const handleVoteClick = (e: React.MouseEvent, type: string) => {
+  const handleVoteClick = async (e: React.MouseEvent, direction: number) => {
     e.stopPropagation();
-    if (type === "up") {
-      setIsUpVoted(!isUpVoted);
-      if (isDownVoted) {
-        setIsDownVoted(false);
-      }
-    } else {
-      setIsDownVoted(!isDownVoted);
-      if (isUpVoted) {
-        setIsUpVoted(false);
-      }
+    try {
+      await votePost(postId, direction);
+
+      setVoteStatus(direction);
+      setUpVotesCount((prev) => prev + (direction - voteStatus)); // Adjust like count based on current and previous votes
+    } catch (error) {
+      console.error("Failed to vote", error);
     }
   };
+
   return (
     <div className="flex flex-row gap-2" style={style}>
       <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full">
-        <button onClick={(e) => handleVoteClick(e, "up")}>
-          {!isUpVoted ? (
+        <button onClick={(e) => handleVoteClick(e, voteStatus === 1 ? 0 : 1)}>
+          {voteStatus !== 1 ? (
             <img src={upVoteIcon} alt="Upvote" className="w-4 h-4" />
           ) : (
             <img src={upVoteIconFilled} alt="Upvote" className="w-4 h-4" />
           )}
         </button>
 
-        <div className="text-sm font-semibold text-gray-700">{likes}</div>
+        <div className="text-sm font-semibold text-gray-700">
+          {upVotesCount}
+        </div>
 
-        <button onClick={(e) => handleVoteClick(e, "down")}>
-          {!isDownVoted ? (
+        <button onClick={(e) => handleVoteClick(e, voteStatus === -1 ? 0 : -1)}>
+          {voteStatus !== -1 ? (
             <img src={downVoteIcon} alt="Downvote" className="w-4 h-4" />
           ) : (
             <img src={downVoteIconFilled} alt="Downvote" className="w-4 h-4" />
@@ -62,7 +69,9 @@ export const PostEngagement = ({
         >
           <img src={commentsIcon} alt="Comments" className="w-4 h-4" />
         </button>
-        <div className="text-sm font-semibold text-gray-700 p-1">{comments}</div>
+        <div className="text-sm font-semibold text-gray-700 p-1">
+          {numComments}
+        </div>
       </div>
     </div>
   );
