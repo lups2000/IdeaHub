@@ -67,7 +67,6 @@ export async function getPosts(
     },
     after ? { after } : {}
   );
-  console.log(response.data.children);
   return {
     posts: response.data.children,
     after: response.data.after, // Get the after cursor from the response

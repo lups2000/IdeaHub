@@ -40,7 +40,7 @@ export const PostEngagement = ({
 
   return (
     <div className="flex flex-row gap-2" style={style}>
-      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full">
+      <div className="flex items-center space-x-2 bg-gray-100 px-2 py-2 rounded-full">
         <button onClick={(e) => handleVoteClick(e, voteStatus === 1 ? 0 : 1)}>
           {voteStatus !== 1 ? (
             <img src={upVoteIcon} alt="Upvote" className="w-4 h-4" />
@@ -62,13 +62,8 @@ export const PostEngagement = ({
         </button>
       </div>
 
-      <div className="flex items-center bg-gray-100 p-1 rounded-full">
-        <button
-          className="flex items-center justify-center w-8 h-8 rounded-full"
-          disabled
-        >
-          <img src={commentsIcon} alt="Comments" className="w-4 h-4" />
-        </button>
+      <div className="flex items-center space-x-1 bg-gray-100 px-2 rounded-full">
+        <img src={commentsIcon} alt="Comments" className="w-4 h-4" />
         <div className="text-sm font-semibold text-gray-700 p-1">
           {numComments}
         </div>
