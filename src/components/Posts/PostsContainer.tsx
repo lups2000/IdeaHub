@@ -4,8 +4,11 @@ import "../../style/post.css";
 import { useEffect, useState } from "react";
 import { getPosts, Post } from "../../api/collections/post";
 import { FadeLoader } from "react-spinners";
+import { useParams } from "react-router-dom";
 
 export const PostsContainer = () => {
+  const { subreddit } = useParams<{ subreddit: string }>();
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [after, setAfter] = useState<string | null>(null);
@@ -28,7 +31,7 @@ export const PostsContainer = () => {
   const loadPosts = async () => {
     setIsFetching(true);
     try {
-      const response = await getPosts("r/reactjs", after);
+      const response = await getPosts(`r/${subreddit}`, after);
 
       setPosts([...posts, ...response.posts]);
       setAfter(response.after);

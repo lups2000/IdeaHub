@@ -1,11 +1,25 @@
+import { useState } from "react";
+import searchIcon from "../../assets/search.svg";
+
 interface SearchBarProps {
-  search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  onSubmitSearch: (search: string) => void;
 }
 
-export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
+export const SearchBar = ({ onSubmitSearch }: SearchBarProps) => {
+  const [search, setSearch] = useState<string>("");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      onSubmitSearch(search);
+    }
+  };
+
+  const handleSubmitSearch = () => {
+    onSubmitSearch(search);
   };
 
   return (
@@ -16,19 +30,14 @@ export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
         placeholder="Search"
         value={search}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 16 16"
-        fill="currentColor"
-        className="h-4 w-4 opacity-70"
-      >
-        <path
-          fillRule="evenodd"
-          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-          clipRule="evenodd"
-        />
-      </svg>
+      <img
+        src={searchIcon}
+        alt="search-icon"
+        className="w-4 h-4 cursor-pointer"
+        onClick={handleSubmitSearch}
+      />
     </label>
   );
 };
