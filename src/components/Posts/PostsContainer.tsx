@@ -45,6 +45,9 @@ export const PostsContainer = () => {
 
   return (
     <div className="flex flex-col items-center p-10">
+      <h1 className="text-3xl font-semibold text-gray-800 mb-6">
+        r/{subreddit}
+      </h1>
       <Masonry
         breakpointCols={breakpointColumns}
         className="my-masonry-grid"
