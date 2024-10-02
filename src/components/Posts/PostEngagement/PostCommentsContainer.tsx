@@ -5,6 +5,7 @@ import {
   PostCommentInterface,
 } from "../../../api/collections/post";
 import { PostComment } from "./PostComment";
+import { useParams } from "react-router-dom";
 
 interface PostCommentsContainerProps {
   postId: string;
@@ -13,13 +14,15 @@ interface PostCommentsContainerProps {
 export const PostCommentsContainer = ({
   postId,
 }: PostCommentsContainerProps) => {
+  const { subreddit } = useParams<{ subreddit: string }>();
+
   const [comments, setComments] = useState<PostCommentInterface[]>([]);
 
   useEffect(() => {
-    getCommentsPost("r/reactjs", postId)
+    getCommentsPost(`r/${subreddit}`, postId)
       .then((response) => setComments(response))
       .catch((error) => console.log(error));
-  }, [postId]);
+  }, [subreddit, postId]);
 
   return (
     <div className="flex flex-col mt-2">
