@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# IdeaHub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Description
 
-## Available Scripts
+**IdeaHub** is a Reddit client clone that allows users to explore, search, and interact with subreddits, posts, and comments using an alternative interface to the official Reddit platform. The application is designed to provide a smooth and intuitive experience while showcasing key features like browsing popular subreddits and diving deep into posts and discussions.
 
-In the project directory, you can run:
+This project is part of the JetBrains internship application, demonstrating proficiency in building front-end applications with React, integrating external APIs, and managing state effectively.
 
-### `yarn start`
+## Features Implemented
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Subreddit Browsing**: Discover and search for popular subreddits with real-time data.
+- **Post Exploration**: View and interact with posts, including seeing the number of upvotes and comments.
+- **Comment Threads**: Dive into post comments, including nested replies, to engage with Reddit discussions.
+- **Seamless Reddit API Integration**: Fetches live data from the Reddit API to ensure up-to-date content.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Project Structure
 
-### `yarn test`
+This is a **React** application that serves as the front-end for exploring Reddit. The app uses the **Reddit API** to retrieve data about subreddits, posts, and comments, offering a simplified, alternative user interface.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Technologies Used
 
-### `yarn build`
+- **React**: Front-end library for building user interfaces.
+- **TypeScript**: Static type-checking for improved code reliability.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Reddit API**: Fetching real-time subreddit, post, and comment data.
+- **Axios**: For making HTTP requests.
+- **React Router**: For handling in-app navigation.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Before setting up the project, ensure you have the following installed on your machine:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Node.js (v14 or later)**: Download [Node.js](https://nodejs.org/en)
+- **Yarn**: If not installed, run `npm install --global yarn`
 
-### `yarn eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Follow these steps to set up the project locally:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository
+2. `cd` to IdeaHub
+3. Run `yarn` or `yarn install` to install all the dependencies
+4. Create a `.env` file in the root directory and add the following environment variables: `REACT_APP_ACCESS_TOKEN=<your_reddit_access_token>`
+5. Run `yarn start` to start the development server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### How to get an Access Token for the Reddit API
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To make authenticated requests to the Reddit API, you will need an access token. Follow these steps to obtain it:
 
-## Learn More
+1. [Create a Reddit Application](https://www.reddit.com/prefs/apps)
+2. Request an Access Token: Use `curl` or a similar tool to send a POST request to the Reddit API:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`curl -X POST \
+https://www.reddit.com/api/v1/access_token \
+-H "Authorization: Basic <Base64Encoded(client_id:client_secret)>" \
+-d "grant_type=password&username=your_reddit_username&password=your_reddit_password"
+`
+3. You will receive a response containing an access_token. Use this in the .env file as REACT_APP_ACCESS_TOKEN.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Design Decisions
+
+To start, since I decided to build a Reddit clone, I included an initial separate page to search for subreddits. I also featured the six most popular ones to give users a clearer idea of the page's purpose.
+
+Next, I wanted to redesign the posts in a masonry layout, as I liked the idea of posts with different content fitting together. For this design choice, I opted for a modal to display post details and comments.
+
+In the comments section, I aimed to provide a better visualization of nested comments to enhance user experience (UX).
+
+## Challenges Faced
+
+The first challenge was building the posts masonry layout. I had a clear concept in mind but encountered difficulties implementing it from scratch. As a result, I used this package, which delivers decent results: [react-masonry-css](https://github.com/paulcollett/react-masonry-css). Unfortunately, sometimes, when loading posts with a lot of content, the column heights break, and this is still an issue to be resolved: [GitHub issue](https://github.com/paulcollett/react-masonry-css/issues/86).
+
+The second challenge was understanding the Reddit API since it was my first time working with it. Initially, I had to consult the documentation to identify the structure of various objects used in requests and responses.
