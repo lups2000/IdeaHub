@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { decodeHtmlEntities } from "../../../utils/functions";
 import { PostHeader } from "../PostHeader";
 import { PostComment } from "../../../api/collections/post";
@@ -29,19 +30,24 @@ export const PostCommentCard = ({
       {/* Render replies (if any) */}
       {replies && replies.length > 0 && (
         <div className="ml-3 pl-4 border-gray-300">
-          {replies.map((reply) => (
-            <PostCommentCard
-              key={reply.data.id}
-              username={reply.data.author}
-              date={reply.data.created_utc}
-              comment={reply.data.body_html}
-              replies={
-                typeof reply.data.replies !== "string" // if it's a string , it's an empty string and we don't have any replies
-                  ? reply.data.replies?.data.children
-                  : undefined
-              }
-            />
-          ))}
+          {replies.map((reply) => {
+            if (reply.data.author) {
+              // Check if the reply has an author, if not the reply is undefined and we don't render it
+              return (
+                <PostCommentCard
+                  key={reply.data.id}
+                  username={reply.data.author}
+                  date={reply.data.created_utc}
+                  comment={reply.data.body_html}
+                  replies={
+                    typeof reply.data.replies !== "string" // if it's a string , it's an empty string and we don't have any replies
+                      ? reply.data.replies?.data.children
+                      : undefined
+                  }
+                />
+              );
+            }
+          })}
         </div>
       )}
     </div>
