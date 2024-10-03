@@ -19,7 +19,7 @@ export const SubRedditCard = ({
 
   return (
     <div
-      className="flex items-center p-4 bg-white shadow-lg rounded-lg border border-gray-300 hover:shadow-xl transition-shadow duration-200 ease-in-out cursor-pointer"
+      className="flex items-center p-4 bg-white shadow-lg rounded-lg border border-gray-300 ease-in-out cursor-pointer hover:scale-105 transition-transform duration-300"
       onClick={handleClickSubReddit}
     >
       {/* Subreddit Icon */}
