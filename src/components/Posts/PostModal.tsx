@@ -9,19 +9,19 @@ interface PostModalProps {
   isOpen: boolean;
   onClose: () => void;
   post: Post;
+  onVoteChange: (newVoteStatus: number) => void; // Add this prop
+  voteStatus: number; // Current vote status
 }
 
-export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
-  const {
-    author,
-    created_utc,
-    title,
-    ups,
-    num_comments,
-    selftext_html,
-    likes,
-    id,
-  } = post.data;
+export const PostModal = ({
+  isOpen,
+  onClose,
+  post,
+  voteStatus,
+  onVoteChange,
+}: PostModalProps) => {
+  const { author, created_utc, title, ups, num_comments, selftext_html, id } =
+    post.data;
   const imageUrl = post.data.preview?.images?.[0]?.source?.url || "";
 
   if (!isOpen) return null;
@@ -78,8 +78,9 @@ export const PostModal = ({ isOpen, onClose, post }: PostModalProps) => {
         <PostEngagement
           numUpVotes={ups}
           numComments={num_comments}
-          likes={likes}
+          likes={voteStatus === 1 ? true : voteStatus === -1 ? false : null} // Pass the current vote status
           postId={id}
+          onVoteChange={onVoteChange} // Pass the vote change handler
           style={{ marginTop: 10, marginBottom: 10 }}
         />
         <hr />

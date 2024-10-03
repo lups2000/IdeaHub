@@ -11,6 +11,7 @@ interface PostEngagementProps {
   numComments: number;
   likes: boolean | null;
   postId: string;
+  onVoteChange: (newVoteStatus: number) => void;
   style?: React.CSSProperties;
 }
 
@@ -19,6 +20,7 @@ export const PostEngagement = ({
   numComments,
   likes,
   postId,
+  onVoteChange,
   style,
 }: PostEngagementProps) => {
   const [voteStatus, setVoteStatus] = useState<number>(
@@ -33,6 +35,9 @@ export const PostEngagement = ({
 
       setVoteStatus(direction);
       setUpVotesCount((prev) => prev + (direction - voteStatus)); // Adjust like count based on current and previous votes
+
+      // Call the parent's vote change handler
+      onVoteChange(direction === 0 ? 0 : direction); // Pass new vote status
     } catch (error) {
       console.error("Failed to vote", error);
     }

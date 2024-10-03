@@ -11,12 +11,25 @@ export interface PostCardProps {
 export const PostCard = (props: PostCardProps) => {
   const { author, created_utc, title, ups, num_comments, likes, id } =
     props.post.data;
+
   const imageUrl = props.post.data.preview?.images?.[0]?.source?.url || "";
+
+  // Local state for likes and upvotes
+  const [upVotesCount, setUpVotesCount] = useState(ups);
+  const [voteStatus, setVoteStatus] = useState(
+    likes === true ? 1 : likes === false ? -1 : 0
+  );
 
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleShowModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
+
+  // Function to handle vote changes
+  const handleVoteChange = (newVoteStatus: number) => {
+    setVoteStatus(newVoteStatus);
+    setUpVotesCount((prev) => prev + (newVoteStatus - voteStatus));
+  };
 
   return (
     <>
@@ -48,19 +61,27 @@ export const PostCard = (props: PostCardProps) => {
         {/* Post Engagement */}
         <hr />
         <PostEngagement
-          numUpVotes={ups}
+          numUpVotes={upVotesCount}
           numComments={num_comments}
-          likes={likes}
+          likes={voteStatus === 1 ? true : voteStatus === -1 ? false : null}
           postId={id}
+          onVoteChange={handleVoteChange}
         />
       </div>
-      {
-        <PostModal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          post={props.post}
-        />
-      }
+      <PostModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        post={{
+          ...props.post,
+          data: {
+            ...props.post.data,
+            ups: upVotesCount,
+            likes: voteStatus === 1 ? true : voteStatus === -1 ? false : null,
+          },
+        }} // Pass updated post data
+        onVoteChange={handleVoteChange}
+        voteStatus={voteStatus}
+      />
     </>
   );
 };
