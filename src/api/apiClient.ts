@@ -34,4 +34,6 @@ export class ApiClient {
     return this.request<T>({ url, method: "POST", data, ...config });
   }
 
+  // Add PUT and DELETE methods here if needed
+
 }

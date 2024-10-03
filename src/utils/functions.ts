@@ -20,7 +20,7 @@ export const formatDate = (utcTimestamp: number) => {
   }
 };
 
-// Function to unescape HTML entities
+// Function to unescape HTML entities (e.g., &lt; to <)
 export const decodeHtmlEntities = (str: string) => {
   const txt = document.createElement("textarea");
   txt.innerHTML = str;

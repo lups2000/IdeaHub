@@ -7,7 +7,7 @@ import { FadeLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
 
 export const PostsContainer = () => {
-  const { subreddit } = useParams<{ subreddit: string }>();
+  const { subreddit } = useParams<{ subreddit: string }>(); // Get the subreddit from the URL
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -15,6 +15,7 @@ export const PostsContainer = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const breakpointColumns = {
+    // breakpoints for the masonry layout
     default: 4,
     1100: 3,
     700: 2,
@@ -25,9 +26,8 @@ export const PostsContainer = () => {
   useEffect(() => {
     loadPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [subreddit]);
 
-  // Function to load posts (initial or additional)
   const loadPosts = async () => {
     setIsFetching(true);
     try {

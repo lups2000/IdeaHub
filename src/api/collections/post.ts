@@ -76,7 +76,7 @@ export async function getPosts(
   );
   return {
     posts: response.data.children,
-    after: response.data.after, // Get the after cursor from the response
+    after: response.data.after, // Get the after cursor from the response to handle pagination
   };
 }
 

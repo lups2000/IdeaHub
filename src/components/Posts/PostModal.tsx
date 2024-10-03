@@ -9,8 +9,8 @@ interface PostModalProps {
   isOpen: boolean;
   onClose: () => void;
   post: Post;
-  onVoteChange: (newVoteStatus: number) => void; // Add this prop
-  voteStatus: number; // Current vote status
+  onVoteChange: (newVoteStatus: number) => void;
+  voteStatus: number;
 }
 
 export const PostModal = ({
