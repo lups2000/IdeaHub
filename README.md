@@ -74,4 +74,4 @@ The second challenge was understanding the Reddit API since it was my first time
 
 ![Homepage](./images/home.jpg)
 ![Posts Page](./images/posts.jpg)
-![Posts Details](./images/post_details.jpg)
+![Posts Details](./images/Post_Details.jpg)
