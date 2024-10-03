@@ -20,7 +20,10 @@ export const PostCommentsContainer = ({
 
   useEffect(() => {
     getCommentsPost(`r/${subreddit}`, postId)
-      .then((response) => setComments(response))
+      .then((response) => {
+        console.log(response);
+        setComments(response);
+      })
       .catch((error) => console.log(error));
   }, [subreddit, postId]);
 
@@ -35,6 +38,11 @@ export const PostCommentsContainer = ({
               username={comment.data.author}
               date={comment.data.created_utc}
               comment={comment.data.body_html}
+              replies={
+                typeof comment.data.replies !== "string" // if it's a string , it's an empty string and we don't have any replies
+                  ? comment.data.replies?.data.children
+                  : undefined
+              }
             />
           ))
         ) : (

@@ -30,6 +30,13 @@ export interface PostCommentInterface {
     author: string;
     created_utc: number;
     body_html: string;
+    replies:
+      | {
+          data: {
+            children: PostCommentInterface[];
+          };
+        }
+      | string; // replies can be an object or an empty string
   };
 }
 
@@ -73,6 +80,21 @@ export async function getPosts(
   };
 }
 
+// Recursive function to map nested replies
+function mapNestedReplies(comment: PostCommentInterface): PostCommentInterface {
+  // Check if the comment has replies and it's not an empty string
+  if (comment.data.replies && typeof comment.data.replies === "object") {
+    const replies = comment.data.replies?.data?.children || [];
+
+    // Recursively map the replies
+    comment.data.replies.data.children = replies.map(
+      (reply: PostCommentInterface) => mapNestedReplies(reply)
+    );
+  }
+
+  return comment;
+}
+
 export async function getCommentsPost(
   subreddit: string,
   postId: string
@@ -85,7 +107,10 @@ export async function getCommentsPost(
       },
     }
   );
-  return response[1].data.children;
+
+  const comments = response[1].data.children;
+  // Ensure replies are handled recursively
+  return comments.map((comment) => mapNestedReplies(comment));
 }
 
 export async function votePost(
