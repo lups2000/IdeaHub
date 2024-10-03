@@ -54,8 +54,7 @@ To make authenticated requests to the Reddit API, you will need an access token.
 https://www.reddit.com/api/v1/access_token \
 -H "Authorization: Basic <Base64Encoded(client_id:client_secret)>" \
 -d "grant_type=password&username=your_reddit_username&password=your_reddit_password"
-`
-3. You will receive a response containing an access_token. Use this in the .env file as REACT_APP_ACCESS_TOKEN.
+` 3. You will receive a response containing an access_token. Use this in the .env file as REACT_APP_ACCESS_TOKEN.
 
 ## Design Decisions
 
@@ -70,3 +69,9 @@ In the comments section, I aimed to provide a better visualization of nested com
 The first challenge was building the posts masonry layout. I had a clear concept in mind but encountered difficulties implementing it from scratch. As a result, I used this package, which delivers decent results: [react-masonry-css](https://github.com/paulcollett/react-masonry-css). Unfortunately, sometimes, when loading posts with a lot of content, the column heights break, and this is still an issue to be resolved: [GitHub issue](https://github.com/paulcollett/react-masonry-css/issues/86).
 
 The second challenge was understanding the Reddit API since it was my first time working with it. Initially, I had to consult the documentation to identify the structure of various objects used in requests and responses.
+
+## DEMO
+
+![Homepage](./images/home.jpg)
+![Posts Page](./images/posts.jpg)
+![Posts Details](./images/post_details.jpg)
