@@ -6,6 +6,7 @@ import {
 } from "../../../api/collections/post";
 import { PostComment } from "./PostComment";
 import { useParams } from "react-router-dom";
+import { FadeLoader } from "react-spinners";
 
 interface PostCommentsContainerProps {
   postId: string;
@@ -17,21 +18,35 @@ export const PostCommentsContainer = ({
   const { subreddit } = useParams<{ subreddit: string }>();
 
   const [comments, setComments] = useState<PostCommentInterface[]>([]);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    getCommentsPost(`r/${subreddit}`, postId)
-      .then((response) => {
-        console.log(response);
-        setComments(response);
-      })
-      .catch((error) => console.log(error));
-  }, [subreddit, postId]);
+    loadComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postId, subreddit]);
+
+  const loadComments = async () => {
+    setIsFetching(true);
+    try {
+      const response = await getCommentsPost(`r/${subreddit}`, postId);
+
+      setComments(response);
+    } catch (error) {
+      console.error("Failed to load comments", error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
 
   return (
     <div className="flex flex-col mt-2">
       <div className="text-xl font-semibold">Comments</div>
       <div className="mt-2">
-        {comments.length > 0 ? (
+        {isFetching ? (
+          <div className="flex justify-center mt-4">
+            <FadeLoader color="gray" />
+          </div>
+        ) : comments.length > 0 ? (
           comments.map((comment) => (
             <PostComment
               key={comment.data.id}
