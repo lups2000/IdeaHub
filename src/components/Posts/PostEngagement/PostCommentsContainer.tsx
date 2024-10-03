@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 
-import {
-  getCommentsPost,
-  PostCommentInterface,
-} from "../../../api/collections/post";
-import { PostComment } from "./PostComment";
+import { getCommentsPost, PostComment } from "../../../api/collections/post";
+import { PostCommentCard } from "./PostCommentCard";
 import { useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 
@@ -17,7 +14,7 @@ export const PostCommentsContainer = ({
 }: PostCommentsContainerProps) => {
   const { subreddit } = useParams<{ subreddit: string }>();
 
-  const [comments, setComments] = useState<PostCommentInterface[]>([]);
+  const [comments, setComments] = useState<PostComment[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
@@ -48,7 +45,7 @@ export const PostCommentsContainer = ({
           </div>
         ) : comments.length > 0 ? (
           comments.map((comment) => (
-            <PostComment
+            <PostCommentCard
               key={comment.data.id}
               username={comment.data.author}
               date={comment.data.created_utc}

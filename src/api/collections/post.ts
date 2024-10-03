@@ -23,7 +23,7 @@ export interface Post {
   };
 }
 
-export interface PostCommentInterface {
+export interface PostComment {
   kind: string;
   data: {
     id: string;
@@ -33,7 +33,7 @@ export interface PostCommentInterface {
     replies:
       | {
           data: {
-            children: PostCommentInterface[];
+            children: PostComment[];
           };
         }
       | string; // replies can be an object or an empty string
@@ -50,7 +50,7 @@ interface PostResponse {
 interface PostCommentResponse {
   kind: string;
   data: {
-    children: PostCommentInterface[];
+    children: PostComment[];
   };
 }
 
@@ -81,14 +81,14 @@ export async function getPosts(
 }
 
 // Recursive function to map nested replies
-function mapNestedReplies(comment: PostCommentInterface): PostCommentInterface {
+function mapNestedReplies(comment: PostComment): PostComment {
   // Check if the comment has replies and it's not an empty string
   if (comment.data.replies && typeof comment.data.replies === "object") {
     const replies = comment.data.replies?.data?.children || [];
 
     // Recursively map the replies
-    comment.data.replies.data.children = replies.map(
-      (reply: PostCommentInterface) => mapNestedReplies(reply)
+    comment.data.replies.data.children = replies.map((reply: PostComment) =>
+      mapNestedReplies(reply)
     );
   }
 
@@ -98,7 +98,7 @@ function mapNestedReplies(comment: PostCommentInterface): PostCommentInterface {
 export async function getCommentsPost(
   subreddit: string,
   postId: string
-): Promise<PostCommentInterface[]> {
+): Promise<PostComment[]> {
   const response = await apiClient.get<PostCommentResponse[]>(
     `${subreddit}/comments/${postId}`,
     {

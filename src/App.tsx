@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { PostsContainer } from "./components/Posts/PostsContainer";
-import { SearchBar } from "./components/SubReddits/SearchBar";
 import { SubRedditsContainer } from "./components/SubReddits/SubRedditsContainer";
 
 function App() {

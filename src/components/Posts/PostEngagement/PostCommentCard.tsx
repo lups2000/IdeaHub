@@ -1,15 +1,15 @@
 import { decodeHtmlEntities } from "../../../utils/functions";
 import { PostHeader } from "../PostHeader";
-import { PostCommentInterface } from "../../../api/collections/post";
+import { PostComment } from "../../../api/collections/post";
 
 interface PostCommentProps {
   username: string;
   date: number;
   comment: string;
-  replies?: PostCommentInterface[]; // Accept replies as a prop
+  replies?: PostComment[]; // Accept replies as a prop
 }
 
-export const PostComment = ({
+export const PostCommentCard = ({
   username,
   date,
   comment,
@@ -30,7 +30,7 @@ export const PostComment = ({
       {replies && replies.length > 0 && (
         <div className="ml-3 pl-4 border-gray-300">
           {replies.map((reply) => (
-            <PostComment
+            <PostCommentCard
               key={reply.data.id}
               username={reply.data.author}
               date={reply.data.created_utc}
