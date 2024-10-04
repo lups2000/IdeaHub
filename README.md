@@ -55,7 +55,7 @@ To make authenticated requests to the Reddit API, you will need an access token.
     --user "your_client_ID:your_client_secret" https://www.reddit.com/api/v1/access_token
     ```
 
-3. You will receive a response containing an access_token. Use this in the .env file as REACT_APP_ACCESS_TOKEN.
+3. You will receive a response containing an access_token. Use this in the .env file as `REACT_APP_ACCESS_TOKEN`.
 4. If the token expires, simply run that command again and copy the token.
 
 ## Design Decisions
