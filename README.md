@@ -50,9 +50,10 @@ To make authenticated requests to the Reddit API, you will need an access token.
 1. [Create a Reddit Application](https://www.reddit.com/prefs/apps) --> Choose "script"
 2. Request an Access Token: Use `curl` or a similar tool to send a POST request to the Reddit API:
 
-    `curl -X POST -d "grant_type=password&username=your_reddit_username&password=your_reddit_password"
+    ```
+    curl -X POST -d "grant_type=password&username=your_reddit_username&password=your_reddit_password"
     --user "your_client_ID:your_client_secret" https://www.reddit.com/api/v1/access_token
-    `
+    ```
 
 3. You will receive a response containing an access_token. Use this in the .env file as REACT_APP_ACCESS_TOKEN.
 4. If the token expires, simply run that command again and copy the token.
