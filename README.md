@@ -4,7 +4,7 @@
 
 **IdeaHub** is a Reddit client clone that allows users to explore, search, and interact with subreddits, posts, and comments using an alternative interface to the official Reddit platform. The application is designed to provide a smooth and intuitive experience while showcasing key features like browsing popular subreddits and diving deep into posts and discussions.
 
-This project is part of the JetBrains internship application, demonstrating proficiency in building front-end applications with React, integrating external APIs, and managing state effectively.
+This project is part of the **JetBrains internship** application, demonstrating proficiency in building front-end applications with React, integrating external APIs, and managing state effectively.
 
 ## Features Implemented
 
@@ -60,9 +60,9 @@ To make authenticated requests to the Reddit API, you will need an access token.
 
 ## Design Decisions
 
-To start, since I decided to build a Reddit clone, I included an initial separate page to search for subreddits. I also featured the six most popular ones to give users a clearer idea of the page's purpose.
+To start, since I decided to build a Reddit clone, I included an initial separate page to search for subreddits. I also featured the **six most popular** ones to give users a clearer idea of the page's purpose.
 
-Next, I wanted to redesign the posts in a masonry layout, as I liked the idea of posts with different content fitting together. For this design choice, I opted for a modal to display post details and comments.
+Next, I wanted to redesign the posts in a **masonry layout**, as I liked the idea of posts with different content fitting together. For this design choice, I opted for a modal to display post details and comments.
 
 In the comments section, I aimed to provide a better visualization of nested comments to enhance user experience (UX).
 
