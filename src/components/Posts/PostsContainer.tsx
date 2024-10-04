@@ -13,6 +13,7 @@ export const PostsContainer = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [after, setAfter] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
+  const [error, setError] = useState("");
 
   const breakpointColumns = {
     // breakpoints for the masonry layout
@@ -38,6 +39,7 @@ export const PostsContainer = () => {
       setHasMore(!!response.after); // !! operator converts the value to a boolean
     } catch (error) {
       console.error("Failed to load posts", error);
+      setError("An error occurred while fetching posts");
     } finally {
       setIsFetching(false);
     }
@@ -57,21 +59,20 @@ export const PostsContainer = () => {
           <PostCard key={post.data.id} post={post} />
         ))}
       </Masonry>
-      {isFetching ? (
-        <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4">
+        {isFetching ? (
           <FadeLoader color="gray" />
-        </div>
-      ) : (
-        hasMore &&
-        posts.length > 0 && (
+        ) : error ? (
+          <p className="text-lg text-red-600">{error}</p>
+        ) : hasMore && posts.length > 0 ? (
           <button
             onClick={loadPosts}
-            className="w-40 h-10 mt-4 rounded-sm bg-white border border-gray-300 font-semibold transition duration-300 ease-in-out hover:scale-110"
+            className="w-40 h-10 rounded-sm bg-white border border-gray-300 font-semibold transition duration-300 ease-in-out hover:scale-110"
           >
             Load More
           </button>
-        )
-      )}
+        ) : null}
+      </div>
     </div>
   );
 };

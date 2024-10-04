@@ -13,6 +13,7 @@ export const SubRedditsContainer = () => {
 
   const [subReddits, setSubReddits] = useState<Subreddit[]>([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmitSearch = (subreddit: string) => {
     navigate(`/${subreddit}/posts`);
@@ -29,6 +30,7 @@ export const SubRedditsContainer = () => {
       setSubReddits(response);
     } catch (error) {
       console.error("Failed to load subreddits", error);
+      setError("An error occurred while fetching subreddits");
     } finally {
       setIsFetching(false);
     }
@@ -51,7 +53,7 @@ export const SubRedditsContainer = () => {
             <div className="flex justify-center items-center col-span-3">
               <FadeLoader color="gray" />
             </div>
-          ) : (
+          ) : error === "" ? (
             subReddits.map((subReddit) => (
               <SubRedditCard
                 key={subReddit.data.id}
@@ -60,6 +62,10 @@ export const SubRedditsContainer = () => {
                 iconUrl={subReddit.data.icon_img}
               />
             ))
+          ) : (
+            <div className="flex justify-center items-center col-span-3">
+              <p className="text-lg text-red-600">{error}</p>
+            </div>
           )}
         </div>
       </div>
